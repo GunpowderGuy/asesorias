@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Bienvenido, {{ user }}</h2>
+    <h3>Asesorías Pendientes</h3>
+    <ul>
+        {% for session in sessions %}
+        <li>{{ session }}</li>
+        {% else %}
+        <li>No tienes asesorías pendientes.</li>
+        {% endfor %}
+    </ul>
+    <a href="/search">Buscar Asesores</a>
+    <a href="/logout">Logout</a>
+</body>
+</html>

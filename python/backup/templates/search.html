@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Asesores</title>
+</head>
+<body>
+    <h2>Buscar Asesores</h2>
+    <form action="/search" method="POST">
+        <label for="subject">Materia:</label>
+        <input type="text" name="subject" required>
+        <label for="city">Ciudad:</label>
+        <input type="text" name="city" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <h3>Resultados</h3>
+    <ul>
+        {% for tutor in tutors %}
+        <li>{{ tutor.name }} - {{ tutor.subject }} en {{ tutor.city }}</li>
+        {% else %}
+        <li>No se encontraron tutores.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
