@@ -18,11 +18,24 @@
     <ul>
         {% for tutor in tutors %}
         <li>
-            {{ tutor.name }} - {{ tutor.subject }} en {{ tutor.city }}
-            <form action="/schedule/{{ tutor.email }}" method="POST" style="display: inline;">
+            <p>{{ tutor.name }} - {{ tutor.city }}</p>
+            <p><strong>Cursos:</strong> {{ tutor.courses | join(", ") }}</p>
+            <p><strong>Disponibilidad:</strong></p>
+            <ul>
+                {% for slot in tutor.availability %}
+                <li>{{ slot.day }}: {{ slot.start_time }} - {{ slot.end_time }}</li>
+                {% endfor %}
+            </ul>
+            <form action="/schedule/{{ tutor.email }}" method="POST">
+                <label for="date">Seleccione un horario disponible:</label>
+                <select name="date">
+                    {% for slot in tutor.availability %}
+                    <option value="{{ slot.day }} {{ slot.start_time }} - {{ slot.end_time }}">
+                        {{ slot.day }} {{ slot.start_time }} - {{ slot.end_time }}
+                    </option>
+                    {% endfor %}
+                </select>
                 <input type="hidden" name="subject" value="{{ tutor.subject }}">
-                <label for="date">Fecha:</label>
-                <input type="date" name="date" required>
                 <button type="submit">Agendar</button>
             </form>
         </li>

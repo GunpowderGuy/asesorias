@@ -6,15 +6,30 @@
 </head>
 <body>
     <h2>Bienvenido, {{ user }}</h2>
-    <h3>Asesorías Pendientes</h3>
+    {% if request.args.get('message') %}
+    <p style="color: green;">{{ request.args.get('message') }}</p>
+    {% endif %}
+
+<h3>Próximas Asesorías</h3>
+<ul>
+    {% for session in upcoming_sessions %}
+    <li>{{ session['subject'] }} con {{ session['tutor'] }} - Día: {{ session['day'] }}, Horario: {{ session['start_time'] }} - {{ session['end_time'] }}</li>
+    {% else %}
+    <li>No tienes asesorías pendientes.</li>
+    {% endfor %}
+</ul>
+
+
+    <h3>Asesorías Pasadas</h3>
     <ul>
-        {% for session in sessions %}
-        <li>{{ session }}</li>
+        {% for session in past_sessions %}
+        <li>{{ session['subject'] }} con {{ session['tutor'] }} - Fecha: {{ session['date'] }}</li>
         {% else %}
-        <li>No tienes asesorías pendientes.</li>
+        <li>No tienes asesorías pasadas.</li>
         {% endfor %}
     </ul>
-    <a href="/search">Buscar Asesores</a>
+
+    <a href="/search">Buscar más asesores</a>
     <a href="/logout">Logout</a>
 </body>
 </html>

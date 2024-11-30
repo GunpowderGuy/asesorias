@@ -5,16 +5,62 @@
     <title>Register</title>
 </head>
 <body>
-    <h2>Registrar Usuario</h2>
+    <h2>Register</h2>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li style="color: red;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if success %}
+        <p style="color: green;">{{ success }}</p>
+    {% endif %}
     <form action="/register" method="POST">
-        <input type="email" name="email" placeholder="Correo @edu.pe" required>
-        <input type="password" name="password" placeholder="Contraseña" required>
-        <label for="role">Soy:</label>
-        <select name="role">
-            <option value="student">Estudiante</option>
-            <option value="tutor">Tutor</option>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Your email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Your password" required>
+
+        <label for="role">Role:</label>
+        <select name="role" id="role" onchange="window.location.href='/register?role=' + this.value;">
+            <option value="" {% if role == '' or role is none %}selected{% endif %}>Select Role</option>
+            <option value="student" {% if role == 'student' %}selected{% endif %}>Student</option>
+            <option value="tutor" {% if role == 'tutor' %}selected{% endif %}>Tutor</option>
         </select>
-        <button type="submit">Registrar</button>
+
+        {% if role == 'tutor' %}
+        <div id="tutor-fields">
+            <h3>Tutor Information</h3>
+            <label for="courses">Courses:</label>
+            <input type="text" id="courses" name="courses" placeholder="e.g., Math, Physics" required>
+
+            <label for="availability_day">Day:</label>
+            <select name="availability_day" required>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+
+            <label for="availability_start">Start Time:</label>
+            <input type="time" id="availability_start" name="availability_start" required>
+
+            <label for="availability_end">End Time:</label>
+            <input type="time" id="availability_end" name="availability_end" required>
+        </div>
+        {% endif %}
+
+        <button type="submit">Register</button>
     </form>
+
+    <!-- Always visible Return to Login button -->
+    <a href="/login">
+        <button type="button">Return to Login</button>
+    </a>
 </body>
 </html>
