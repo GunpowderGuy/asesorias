@@ -1,0 +1,21 @@
+# Ignore Python virtual environment directories
+venv/
+.env/
+
+.venv/
+.env/
+
+# Ignore virtual environment directories by common names
+env/
+envs/
+.virtualenv/
+
+# Byte-compiled files
+*.pyc
+*.pyo
+__pycache__/
+
+# Editor and IDE configurations
+.idea/
+.vscode/
+*.swp
